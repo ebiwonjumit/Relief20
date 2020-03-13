@@ -3,7 +3,9 @@
 git add .
 read -p 'Commit Message: ' commitMessage
 git commit -m  "$commitMessage"
-echo "Pushing to Git"
+echo "\n\n\n..............................................................."
+echo "Pushing to Git\n"
 git push  origin master
-echo "Pushing to Heroku"
+echo "\n\n\n..............................................................."
+echo "Pushing to Heroku\n"
 git push heroku master
