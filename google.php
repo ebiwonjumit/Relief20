@@ -14,34 +14,34 @@ function getClient() {
 return $client;
 }
 
-$client = getClient();
-$service = new Google_Service_Sheets($client);
-$spreadsheetId = '1WsgpvWcv0vGymTEK_YUl2FAUN6Ce9k_qj3-DD6BZNjc';
-$range = 'Sheet1!B2';
-
 /*
 READ from Google
 */
+function readFromSheet($service,$range,$spreadsheetId){
 $result = $service->spreadsheets_values->get($spreadsheetId, $range);
 $values = $result->getValues();
-$airMattressValue = 0;
-
+$stringValueFromGoogle;
 if (empty($values)) {
     print "No data found.\n";
 } else {
     foreach($values as $row){
       for ($i = 0; $i < sizeof($row); $i++) {
-          $airMattressValue = intval($row[$i]);
+          $stringValueFromGoogle = str_replace(',', '', $row[$i]);;
       }
     };
 }
-print($airMattressValue);
-print('.......................\n.........................');
+$cellValueFromGoogle = intval($stringValueFromGoogle);
+print("Google: " . $stringValueFromGoogle);
+print("\n");
+return $cellValueFromGoogle;
+}
+
 /*
 WRITE to Google
 */
+function writeToSheet($service, $range, $spreadsheetId, $valueFromGoogle){
 $data = [
-  [($airMattressValue + 50)],
+  [($valueFromGoogle + 50)],
 ];
 $body = new Google_Service_Sheets_ValueRange([
     'values' => $data
@@ -53,6 +53,13 @@ $params = [
 $result = $service->spreadsheets_values->update($spreadsheetId, $range,$body,$params);
 printf("%d cells updated.", $result->getUpdatedCells());
 
+}
 
+$client = getClient();
+$service = new Google_Service_Sheets($client);
+$spreadsheetId = '1WsgpvWcv0vGymTEK_YUl2FAUN6Ce9k_qj3-DD6BZNjc';
+$range = 'Sheet1!B2';
+$cellValue = readFromSheet($service,$range,$spreadsheetId);
+writeToSheet($service,$range,$spreadsheetId, $cellValue)
 
 ?>
