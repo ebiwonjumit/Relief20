@@ -31,8 +31,8 @@ if (empty($values)) {
     };
 }
 $cellValueFromGoogle = intval($stringValueFromGoogle);
-print("Google: " . $stringValueFromGoogle);
-print("\n");
+// print("Google: " . $stringValueFromGoogle);
+// print("\n");
 return $cellValueFromGoogle;
 }
 
@@ -51,7 +51,7 @@ $params = [
 ];
 
 $result = $service->spreadsheets_values->update($spreadsheetId, $range,$body,$params);
-printf("%d cells updated.", $result->getUpdatedCells());
+// printf("%d cells updated.", $result->getUpdatedCells());
 
 }
 
@@ -60,6 +60,7 @@ $service = new Google_Service_Sheets($client);
 $spreadsheetId = '1WsgpvWcv0vGymTEK_YUl2FAUN6Ce9k_qj3-DD6BZNjc';
 $range = 'Sheet1!B2';
 $cellValue = readFromSheet($service,$range,$spreadsheetId);
-writeToSheet($service,$range,$spreadsheetId, $cellValue)
+writeToSheet($service,$range,$spreadsheetId, $cellValue);
+echo readfile('thanks.html');
 
 ?>
