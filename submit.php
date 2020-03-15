@@ -22,7 +22,7 @@ $result = $service->spreadsheets_values->get($spreadsheetId, $range);
 $values = $result->getValues();
 $stringValueFromGoogle;
 if (empty($values)) {
-    print "No data found.\n";
+    // print "No data found.\n";
 } else {
     foreach($values as $row){
       for ($i = 0; $i < sizeof($row); $i++) {
@@ -51,7 +51,7 @@ $params = [
 ];
 
 $result = $service->spreadsheets_values->update($spreadsheetId, $range,$body,$params);
-// printf("%d cells updated.", $result->getUpdatedCells());
+printf("%d cells updated.", $result->getUpdatedCells());
 
 }
 
@@ -61,6 +61,6 @@ $spreadsheetId = '1WsgpvWcv0vGymTEK_YUl2FAUN6Ce9k_qj3-DD6BZNjc';
 $range = 'Sheet1!B2';
 $cellValue = readFromSheet($service,$range,$spreadsheetId);
 writeToSheet($service,$range,$spreadsheetId, $cellValue);
-echo readfile('thanks.html');
+header( 'Location: /thanks.html' ) ;
 
 ?>
