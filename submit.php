@@ -59,7 +59,7 @@ $client = getClient();
 $service = new Google_Service_Sheets($client);
 $spreadsheetId = '1WsgpvWcv0vGymTEK_YUl2FAUN6Ce9k_qj3-DD6BZNjc';
 $range = 'Sheet1!B2';
-$airMattressInput =  intval($_POST['airMattressInput']);
+$airMattressInput =  intval($_REQUEST['airMattressInput']);
 $cellValue = readFromSheet($service,$range,$spreadsheetId);
 writeToSheet($service,$range,$spreadsheetId, $airMattressInput);
 header( 'Location: /thanks.html' ) ;
